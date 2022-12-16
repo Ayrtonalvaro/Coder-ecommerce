@@ -7,7 +7,8 @@ module.exports = {
     'plugin:react/recommended',
     'standard',
     'plugin:jsx-a11y/recommended',
-    'plugin:react-hooks/recommended'
+    'plugin:react-hooks/recommended',
+    'prettier'
   ],
   overrides: [
   ],
@@ -17,9 +18,11 @@ module.exports = {
   },
   plugins: [
     'react',
-    'react-hooks'
+    'react-hooks',
+    'prettier'
   ],
   rules: {
+    'prettier/prettier': 'error',
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }
