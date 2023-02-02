@@ -34,3 +34,7 @@ yarn
 - Route/detail/:productId"
 
   Esta ruta renderiz el componente ItemDetailContainer, el cual filtra y muestra el producto segun su ID correspondiente
+
+### Configuracion base de datos
+
+  Las variables de entorno de tu base de datos se configuran llenando los datos del archivo .env.example
