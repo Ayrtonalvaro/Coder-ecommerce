@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProducts, getProductsByCategory } from "../../asyncMock";
-import Item from "./Item";
+import { getProducts } from "../../service/firebase/Firestore/product";
 import ItemList from "./ItemList";
+import { useAsync } from "../../Hooks/useAsync";
 
 const ItemListContainer = ({ title }) => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const { categoryId } = useParams();
 
-  useEffect(() => {
-    setLoading(true);
+  const getProductsByCategory = () => getProducts(categoryId);
 
-    const asyncFunction = categoryId ? getProductsByCategory : getProducts;
-    asyncFunction(categoryId)
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [categoryId]);
+  const {
+    data: products,
+    error,
+    loading,
+  } = useAsync(getProductsByCategory, [categoryId]);
 
-  if (loading)
+  if (error) {
+    return (
+      <h1 className="text-center text-8xl text-red-600">
+        Error en la carga de productos
+      </h1>
+    );
+  }
+  if (loading && !products)
     return <h1 className="text-center text-8xl text-red-600">Cargando...</h1>;
-  return (
-    <div className="p-5 bg-slate-100 h-screen">
-      <h1 className="text-center text-8xl text-red-600">{title}</h1>
-      <ItemList products={products} />
-    </div>
-  );
+  if (products)
+    return (
+      <div className="p-5 bg-slate-100 h-screen">
+        {categoryId && (
+          <h1 className="text-center text-8xl text-red-600 uppercase">{categoryId}</h1>
+        )}
+        {!categoryId && (
+          <h1 className="text-center text-8xl text-red-600">{title}</h1>
+        )}
+
+        <ItemList products={products} />
+      </div>
+    );
 };
 
 export default ItemListContainer;

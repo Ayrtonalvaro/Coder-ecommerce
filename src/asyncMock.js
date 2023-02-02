@@ -32,7 +32,7 @@ export const getProducts = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(products);
-    },1000);
+    },0);
   });
 };
 
@@ -40,7 +40,7 @@ export const getProduct = (id) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(products[id-1])
-    },1000)
+    },0)
   } )
 }
 
@@ -48,7 +48,7 @@ export const getProductsByCategory = (categoryId) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(products.filter((product) => product.category === categoryId));
-    }, 1000);
+    }, 0);
   });
 };
 

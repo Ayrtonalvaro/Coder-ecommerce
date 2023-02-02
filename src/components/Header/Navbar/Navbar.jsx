@@ -4,8 +4,10 @@ import LoginButton from "../LoginButton/LoginButton";
 import logoShop from "../../../assets/logoshop.png";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+
+const Navbar = ({ cart }) => {
   const navigate = useNavigate();
+  
 
   return (
     <div className="bg-black">
@@ -16,13 +18,16 @@ const Navbar = () => {
         <div className="flex gap-20 items-center ">
           <ul className="flex gap-5">
             <li>
-              <p onClick={() => navigate("/")} className="hover:text-red-600 cursor-pointer">
+              <p
+                onClick={() => navigate("/")}
+                className="hover:text-red-600 cursor-pointer"
+              >
                 Home
               </p>
             </li>
             <li>
               <NavLink
-                to="/category/celular"
+                to="/category/celulares"
                 className={({ isActive }) =>
                   isActive ? " text-red-600" : "text-white hover:text-red-600"
                 }
@@ -32,7 +37,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/category/tablet"
+                to="/category/tablets"
                 className={({ isActive }) =>
                   isActive ? " text-red-600" : "text-white hover:text-red-600"
                 }
@@ -53,7 +58,10 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="flex gap-2">
-            <CardWidget />
+            <NavLink to="/cart">
+              <CardWidget cart={cart} />
+            </NavLink>
+            
             <LoginButton />
           </div>
         </div>
